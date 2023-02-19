@@ -1,2 +1,2 @@
 # redux
-usiong redux
+using redux in react
