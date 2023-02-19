@@ -1,32 +1,68 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
+import { useDispatch , useSelector } from 'react-redux/es/exports'//to use hook from redux - old way to use redux
+import { increment , decrementMinus1, incrementAmount, decrementMinus11 } from './redux/counter-slicer'
+
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  //using redux toolkit 
+  const count = useSelector(state => state.counter.value)
+  const dispatch = useDispatch();
+
+  const handleclick1 = ()=>{
+    dispatch(increment())
+  }
+  const handleclick5 = ()=>{
+    dispatch(incrementAmount(5))
+  }
+
+  const handleMinus = ()=>{
+    dispatch(decrementMinus1(5))
+  }
+
+  const handleMinus1 = ()=>{
+    dispatch(decrementMinus1(1))
+  }
+
+
+  /*code to use the hooks from redux and to get this functions from redux.ts
+  const handleclick1 = ()=>{
+    dispatch({type:"counter/increment"})
+  }
+  const handleclick5 = ()=>{
+    dispatch({type:"counter/incrementAmount" , payload : 5})
+  }
+  const handleMinus = ()=>(
+    dispatch({type: "counter/decrement" , payload : 5})
+  )
+  const handleMinus1 = ()=>(
+    dispatch({type: "counter/decrementMinus1" , payload : 1})
+  )
+  */
 
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
+      
+      <h1>Learning Redux and REduxToolkit</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+        <button onClick={()=>handleMinus()}>
+          -5
+        </button>
+        <button onClick={()=>handleMinus1()}>
+          -1
+        </button>
+        <button onClick={()=>handleclick1()}>
+          +1
+        </button>
+        <button onClick={()=>handleclick5()}>
+          +5
         </button>
         <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
+          Clicks {count}
         </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </div>
   )
 }
